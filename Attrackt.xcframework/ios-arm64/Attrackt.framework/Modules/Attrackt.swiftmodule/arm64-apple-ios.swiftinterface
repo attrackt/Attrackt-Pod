@@ -1,0 +1,757 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Attrackt
+import AVFoundation
+import AVKit
+import Alamofire
+@_exported import Attrackt
+import CocoaLumberjack
+import CommonCrypto/*.CC_LONG*/
+import CommonCrypto/*.CC_MD5*/
+import CommonCrypto/*.CC_MD5_DIGEST_LENGTH*/
+import CoreGraphics
+import CoreMedia
+import Dispatch
+import Foundation
+import GRDB
+import Hero
+import Kingfisher
+import LocalAuthentication
+import Moya
+import NSObject_Rx
+import NotificationCenter
+import ObjectMapper
+import QuartzCore
+import RxCocoa
+import RxDataSources
+import RxGesture
+import RxOptional
+import RxSwift
+import RxViewController
+import SnapKit
+import StoreKit
+import Swift
+import SwiftDate
+import SwiftGRPC
+import SwiftProtobuf
+import SwifterSwift
+import SystemConfiguration
+import Toast_Swift
+import UIKit
+import WebKit
+import _Concurrency
+public class ActivityIndicator : RxCocoa.SharedSequenceConvertibleType {
+  public typealias Element = Swift.Bool
+  public typealias SharingStrategy = RxCocoa.DriverSharingStrategy
+  public init()
+  public func asSharedSequence() -> RxCocoa.SharedSequence<Attrackt.ActivityIndicator.SharingStrategy, Attrackt.ActivityIndicator.Element>
+  @objc deinit
+}
+extension RxSwift.ObservableConvertibleType {
+  public func trackActivity(_ activityIndicator: Attrackt.ActivityIndicator) -> RxSwift.Observable<Self.Element>
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class Attrackt : ObjectiveC.NSObject {
+  @objc public static var shared: Attrackt.Attrackt
+  public func turnIapListenerOn()
+  public func turnIapListenerOff()
+  public var delegate: Any? {
+    get
+    set
+  }
+  @objc public static func loadPlacements(placementId: [Swift.String])
+  @objc public static func loadPlacement(placementId: Swift.String)
+  @objc public static func playAd(placementId: Swift.String)
+  @objc public func unityStart(apiKey: Swift.String, unityDelegate: Any?) -> Swift.String
+  @objc public static func start(apiKey: Swift.String, environment: Attrackt.AttracktEnvironment, delegate: Attrackt.AttracktDelegate? = nil)
+  @objc deinit
+}
+@objc public enum AttracktAdFinishedState : Swift.Int {
+  case Error = 1
+  case Skipped = 2
+  case Completed = 3
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol AttracktAdsDelegate : ObjectiveC.NSObjectProtocol {
+  @objc func didClickInterstitial(adType: Swift.Int, advertiser: Attrackt.AttracktSupportedAdvertisers, placement: Swift.String)
+  @objc func interstitialDidClose(adType: Swift.Int, advertiser: Attrackt.AttracktSupportedAdvertisers, placement: Swift.String, state: Attrackt.AttracktAdFinishedState)
+  @objc func interstitialDidFailToLoadWithError(error: Foundation.NSError)
+  @objc func interstitialDidFailToShowWithError(error: Foundation.NSError)
+  @objc func interstitialDidLoad(adType: Swift.Int, advertiser: Attrackt.AttracktSupportedAdvertisers, placement: Swift.String)
+  @objc func interstitialDidOpen(adType: Swift.Int, advertiser: Attrackt.AttracktSupportedAdvertisers, placement: Swift.String)
+  @objc func interstitialDidShow(adType: Swift.Int, advertiser: Attrackt.AttracktSupportedAdvertisers, placement: Swift.String)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class AttracktAdvertisementVc : UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public protocol AttracktBannerDelegate {
+  @objc optional func bannerDidAppeared()
+  @objc optional func bannerDissAppeared()
+  @objc optional func bannerLoadedWithSuccess()
+  @objc optional func bannerLoadFailed()
+  @objc optional func bannerTapped()
+}
+public enum AttracktBannerPosition : Swift.Int {
+  case Top
+  case Bottom
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class AttracktBanner : Attrackt.AttracktAdvertisementVc {
+  @_Concurrency.MainActor(unsafe) public var bannerPosition: Attrackt.AttracktBannerPosition?
+  @_Concurrency.MainActor(unsafe) weak public var delegate: Attrackt.AttracktBannerDelegate?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) public func hideBanner()
+  @_Concurrency.MainActor(unsafe) public func presetBannerWithAsset(assetUrl: Swift.String, onReadyToShow: @escaping ((Swift.Bool) -> Swift.Void))
+  @objc deinit
+}
+@objc public protocol AttracktDelegate {
+  @objc func onAttracktError(error: Attrackt.AttracktError)
+  @objc func onAttracktSdkInitSuccess()
+  @objc func onAttracktReadyToPlayAd()
+}
+@objc public enum AttracktEnvironment : Swift.Int {
+  case Production = 0
+  case Testing = 1
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension StoreKit.SKProduct {
+  public func localizedPrice() -> Swift.String?
+}
+public let IAP: Attrackt.AttracktIAP
+public typealias ProductIdentifier = Swift.String
+public typealias ProductWithExpireDate = [Attrackt.ProductIdentifier : Foundation.Date]
+public typealias ProductsRequestHandler = (_ response: StoreKit.SKProductsResponse?, _ error: Swift.Error?) -> ()
+public typealias PurchaseHandler = (_ productIdentifier: Attrackt.ProductIdentifier?, _ error: Swift.Error?) -> ()
+public typealias RestoreHandler = (_ productIdentifiers: Swift.Set<Attrackt.ProductIdentifier>, _ error: Swift.Error?) -> ()
+public typealias ValidateHandler = (_ statusCode: Swift.Int?, _ products: Attrackt.ProductWithExpireDate?, _ json: [Swift.String : Any]?) -> ()
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class AttracktIAP : ObjectiveC.NSObject {
+  public func addObserver()
+  public func removeObserver()
+  @objc deinit
+}
+extension Attrackt.AttracktIAP {
+  public func requestProducts(_ productIdentifiers: Swift.Set<Attrackt.ProductIdentifier>, handler: @escaping Attrackt.ProductsRequestHandler)
+  public func purchaseProduct(_ productIdentifier: Attrackt.ProductIdentifier, handler: @escaping Attrackt.PurchaseHandler)
+  public func restorePurchases(_ handler: @escaping Attrackt.RestoreHandler)
+  public func validateReceipt(_ password: Swift.String? = nil, handler: @escaping Attrackt.ValidateHandler)
+}
+extension Attrackt.AttracktIAP : StoreKit.SKProductsRequestDelegate {
+  @objc dynamic public func productsRequest(_ request: StoreKit.SKProductsRequest, didReceive response: StoreKit.SKProductsResponse)
+  @objc dynamic public func request(_ request: StoreKit.SKRequest, didFailWithError error: Swift.Error)
+}
+extension Attrackt.AttracktIAP : StoreKit.SKPaymentTransactionObserver {
+  @objc dynamic public func paymentQueue(_ queue: StoreKit.SKPaymentQueue, updatedTransactions transactions: [StoreKit.SKPaymentTransaction])
+  @objc dynamic public func paymentQueueRestoreCompletedTransactionsFinished(_ queue: StoreKit.SKPaymentQueue)
+  @objc dynamic public func paymentQueue(_ queue: StoreKit.SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Swift.Error)
+}
+public enum ReceiptStatus : Swift.Int {
+  case noRecipt
+  case valid
+  case testReceipt
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol AttracktIAPDelegate {
+  @objc optional func OnPurchaseComplete(sku: Swift.String)
+  @objc optional func OnAllReadyPurchaseComplete(sku: Swift.String)
+  @objc optional func OnPurchaseFailed(sku: Swift.String, error: Swift.String)
+}
+@objc public protocol AttracktInterstitialDelegate {
+  @objc func interstitialDidClosed(adState: Attrackt.AttracktAdFinishedState)
+  @objc func interstitialLoadSuccess()
+  @objc func interstitialDidOpen()
+  @objc func interstitialDidShow()
+  @objc func interstitialLoadFailed(failError: Swift.String)
+  @objc func interstitialShowFailed(failError: Swift.String)
+  @objc func interstitialTapped()
+}
+public enum AttracktInterstitialPlacementType : Swift.Int {
+  case Image
+  case Video
+  case Webview
+  case Playable
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class AttracktInterstitialVC : Attrackt.AttracktAdvertisementVc, Attrackt.SRCountdownTimerDelegate, Attrackt.PlayerDelegate, Attrackt.PlayerPlaybackDelegate, WebKit.WKNavigationDelegate, WebKit.WKUIDelegate, StoreKit.SKStoreProductViewControllerDelegate {
+  @_Concurrency.MainActor(unsafe) weak public var delegate: Attrackt.AttracktInterstitialDelegate?
+  @_Concurrency.MainActor(unsafe) public var lockdownLength: Swift.Int {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var placementType: Attrackt.AttracktInterstitialPlacementType?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc public func timerDidEnd(sender: Attrackt.SRCountdownTimer, elapsedTime: Foundation.TimeInterval)
+  @_Concurrency.MainActor(unsafe) public func prepareInterstitial(type: Attrackt.AttracktInterstitialPlacementType, assetUrl: Swift.String, lockdownTime: Swift.Int? = nil, onReadyToShow: @escaping ((Swift.Bool) -> Swift.Void))
+  @_Concurrency.MainActor(unsafe) @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor(unsafe) public func playerReady(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerCurrentTimeDidChange(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackStateDidChange(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerBufferingStateDidChange(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackWillStartFromBeginning(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackDidEnd(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackWillLoop(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackDidLoop(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerBufferTimeDidChange(_ bufferTime: Swift.Double)
+  @_Concurrency.MainActor(unsafe) public func player(_ player: Attrackt.Player, didFailWithError error: Swift.Error?)
+  @_Concurrency.MainActor(unsafe) @objc public func webView(_ webView: WebKit.WKWebView, createWebViewWith configuration: WebKit.WKWebViewConfiguration, for navigationAction: WebKit.WKNavigationAction, windowFeatures: WebKit.WKWindowFeatures) -> WebKit.WKWebView?
+  @_Concurrency.MainActor(unsafe) @objc public func productViewControllerDidFinish(_ viewController: StoreKit.SKStoreProductViewController)
+  @objc deinit
+}
+@objc public enum AttracktSupportedAdvertisers : Swift.Int {
+  case Vungle = 1
+  case IronSource = 2
+  case Admob = 3
+  case AdColony = 4
+  case Chartboost = 5
+  case Unity = 6
+  case AppLovin = 8
+  case Facebook = 9
+  case MoPub = 10
+  case Attrackt = 11
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class BaseAdapter : ObjectiveC.NSObject {
+  @objc required override dynamic public init()
+  public var adReadyToPlay: Swift.Bool
+  public var isloaded: Swift.Bool
+  public var retriesExceeded: Swift.Bool
+  public var numberOfRetriesToTry: Swift.Int
+  public var numberOfRetriesDone: Swift.Int
+  public var readyToPlayInterstitial: Swift.Bool
+  public var lastPlacement: Swift.String?
+  public var lastAttracktPlacement: Swift.String?
+  public var advertiser: Swift.Int
+  public var sdkDelegate: Attrackt.AttracktAdsDelegate
+  public var loadCompletionBlock: (Swift.Bool) -> Swift.Void
+  open func showAd(placement: Swift.String, adSetHash: Swift.String)
+  open func showRewarded(placement: Swift.String)
+  open func showBanner(placement: Swift.String)
+  open func loadRewarded(placement: Swift.String, attracktPlacement: Swift.String, onAdLoaded: ((Swift.Bool) -> Swift.Void)!)
+  open func adWasLoaded(placement: Swift.String, attracktPlacement: Swift.String)
+  open func logImpression(placement: Swift.String, attracktPlacement: Swift.String)
+  open func logAdClicked(placement: Swift.String, attracktPlacement: Swift.String)
+  open func logAdClosed(placement: Swift.String, attracktPlacement: Swift.String, skipped: Swift.Int)
+  @objc deinit
+}
+extension CoreGraphics.CGPoint {
+  public enum CoordinateSide {
+    case topLeft, top, topRight, right, bottomRight, bottom, bottomLeft, left
+    public static func == (a: CoreGraphics.CGPoint.CoordinateSide, b: CoreGraphics.CGPoint.CoordinateSide) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static func unitCoordinate(_ side: CoreGraphics.CGPoint.CoordinateSide) -> CoreGraphics.CGPoint
+}
+extension Foundation.Date {
+  public func getSqlTimeString() -> Swift.String
+}
+@objc public enum AttracktErrorType : Swift.Int {
+  case Connectivity
+  case API
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum AttracktErrorAction : Swift.Int {
+  case Init
+  case LoadAdvertisers
+  case LoadAdsetsForPlacement
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class AttracktError : ObjectiveC.NSObject, Swift.Error {
+  @objc final public let message: Swift.String
+  public var localizedDescription: Swift.String {
+    get
+  }
+  @objc deinit
+}
+extension RxSwift.Reactive where Base : UIKit.UIImageView {
+  public var imageURL: RxSwift.Binder<Foundation.URL?> {
+    get
+  }
+  public func imageURL(withPlaceholder placeholderImage: UIKit.UIImage?, options: Kingfisher.KingfisherOptionsInfo? = []) -> RxSwift.Binder<Foundation.URL?>
+}
+extension Kingfisher.ImageCache : RxSwift.ReactiveCompatible {
+  public typealias ReactiveBase = Kingfisher.ImageCache
+}
+extension RxSwift.Reactive where Base : Kingfisher.ImageCache {
+  public func clearCache() -> RxSwift.Observable<Swift.Void>
+}
+public func logDebug(_ message: @autoclosure () -> Swift.String)
+public func logError(_ message: @autoclosure () -> Swift.String)
+public func logInfo(_ message: @autoclosure () -> Swift.String)
+public func logVerbose(_ message: @autoclosure () -> Swift.String)
+public func logWarn(_ message: @autoclosure () -> Swift.String)
+public func logResourcesCount()
+extension RxSwift.ObservableType where Self.Element == Swift.Bool {
+  public func not() -> RxSwift.Observable<Swift.Bool>
+}
+extension RxSwift.Reactive where Base : UIKit.UIScrollView {
+  public var reachedBottom: RxSwift.Observable<Swift.Void> {
+    get
+  }
+}
+infix operator <-> : DefaultPrecedence
+extension RxSwift.ObservableType where Self.Element == Moya.Response {
+  public func mapObject<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) -> RxSwift.Observable<T> where T : ObjectMapper.BaseMappable
+  public func mapArray<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) -> RxSwift.Observable<[T]> where T : ObjectMapper.BaseMappable
+  public func mapObject<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) -> RxSwift.Observable<T> where T : ObjectMapper.BaseMappable
+  public func mapArray<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) -> RxSwift.Observable<[T]> where T : ObjectMapper.BaseMappable
+}
+extension RxSwift.ObservableType where Self.Element == Moya.Response {
+  public func mapObject<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) -> RxSwift.Observable<T> where T : ObjectMapper.ImmutableMappable
+  public func mapArray<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) -> RxSwift.Observable<[T]> where T : ObjectMapper.ImmutableMappable
+  public func mapObject<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) -> RxSwift.Observable<T> where T : ObjectMapper.ImmutableMappable
+  public func mapArray<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) -> RxSwift.Observable<[T]> where T : ObjectMapper.ImmutableMappable
+}
+public let PlayerErrorDomain: Swift.String
+public enum PlayerError : Swift.Error, Swift.CustomStringConvertible {
+  case failed
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: Attrackt.PlayerError, b: Attrackt.PlayerError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol PlayerDelegate : AnyObject {
+  func playerReady(_ player: Attrackt.Player)
+  func playerPlaybackStateDidChange(_ player: Attrackt.Player)
+  func playerBufferingStateDidChange(_ player: Attrackt.Player)
+  func playerBufferTimeDidChange(_ bufferTime: Swift.Double)
+  func player(_ player: Attrackt.Player, didFailWithError error: Swift.Error?)
+}
+public protocol PlayerPlaybackDelegate : AnyObject {
+  func playerCurrentTimeDidChange(_ player: Attrackt.Player)
+  func playerPlaybackWillStartFromBeginning(_ player: Attrackt.Player)
+  func playerPlaybackDidEnd(_ player: Attrackt.Player)
+  func playerPlaybackWillLoop(_ player: Attrackt.Player)
+  func playerPlaybackDidLoop(_ player: Attrackt.Player)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class Player : UIKit.UIViewController {
+  public typealias FillMode = AVFoundation.AVLayerVideoGravity
+  public enum PlaybackState : Swift.Int, Swift.CustomStringConvertible {
+    case stopped
+    case playing
+    case paused
+    case failed
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum BufferingState : Swift.Int, Swift.CustomStringConvertible {
+    case unknown
+    case ready
+    case delayed
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @_Concurrency.MainActor(unsafe) weak open var playerDelegate: Attrackt.PlayerDelegate?
+  @_Concurrency.MainActor(unsafe) weak open var playbackDelegate: Attrackt.PlayerPlaybackDelegate?
+  @_Concurrency.MainActor(unsafe) open var url: Foundation.URL? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var asset: AVFoundation.AVAsset? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var fillMode: Attrackt.Player.FillMode {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var autoplay: Swift.Bool
+  @_Concurrency.MainActor(unsafe) open var muted: Swift.Bool {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var volume: Swift.Float {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var playbackPausesWhenResigningActive: Swift.Bool
+  @_Concurrency.MainActor(unsafe) open var playbackPausesWhenBackgrounded: Swift.Bool
+  @_Concurrency.MainActor(unsafe) open var playbackResumesWhenBecameActive: Swift.Bool
+  @_Concurrency.MainActor(unsafe) open var playbackResumesWhenEnteringForeground: Swift.Bool
+  @_Concurrency.MainActor(unsafe) open var isPlayingVideo: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var playbackLoops: Swift.Bool {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var playbackFreezesAtEnd: Swift.Bool
+  @_Concurrency.MainActor(unsafe) open var playbackState: Attrackt.Player.PlaybackState {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var bufferingState: Attrackt.Player.BufferingState {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open var bufferSizeInSeconds: Swift.Double
+  @_Concurrency.MainActor(unsafe) open var playbackEdgeTriggered: Swift.Bool
+  @_Concurrency.MainActor(unsafe) open var maximumDuration: Foundation.TimeInterval {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var currentTimeInterval: Foundation.TimeInterval {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var currentTime: CoreMedia.CMTime {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var naturalSize: CoreGraphics.CGSize {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var playerView: Attrackt.PlayerView {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open func playerLayer() -> AVFoundation.AVPlayerLayer?
+  @_Concurrency.MainActor(unsafe) open var preferredPeakBitRate: Swift.Double {
+    get
+    set
+  }
+  @available(iOS 11.0, tvOS 11.0, *)
+  @_Concurrency.MainActor(unsafe) open var preferredMaximumResolution: CoreGraphics.CGSize {
+    get
+    set
+  }
+  @objc convenience dynamic public init()
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func loadView()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidDisappear(_ animated: Swift.Bool)
+}
+extension Attrackt.Player {
+  @_Concurrency.MainActor(unsafe) public var totalDurationWatched: Foundation.TimeInterval {
+    get
+  }
+}
+extension Attrackt.Player {
+  @_Concurrency.MainActor(unsafe) open func playFromBeginning()
+  @_Concurrency.MainActor(unsafe) open func playFromCurrentTime()
+  @_Concurrency.MainActor(unsafe) open func pause()
+  @_Concurrency.MainActor(unsafe) open func stop()
+  @_Concurrency.MainActor(unsafe) open func seek(to time: CoreMedia.CMTime, completionHandler: ((Swift.Bool) -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) open func seekToTime(to time: CoreMedia.CMTime, toleranceBefore: CoreMedia.CMTime, toleranceAfter: CoreMedia.CMTime, completionHandler: ((Swift.Bool) -> Swift.Void)? = nil)
+  @_Concurrency.MainActor(unsafe) open func takeSnapshot(completionHandler: ((_ image: UIKit.UIImage?, _ error: Swift.Error?) -> Swift.Void)?)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class PlayerView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public class var layerClass: Swift.AnyClass {
+    @_Concurrency.MainActor(unsafe) @objc get
+  }
+  @_Concurrency.MainActor(unsafe) public var playerBackgroundColor: UIKit.UIColor? {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var playerFillMode: Attrackt.Player.FillMode {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var isReadyForDisplay: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+public enum ReachabilityError : Swift.Error {
+  case failedToCreateWithAddress(Darwin.sockaddr, Swift.Int32)
+  case failedToCreateWithHostname(Swift.String, Swift.Int32)
+  case unableToSetCallback(Swift.Int32)
+  case unableToSetDispatchQueue(Swift.Int32)
+  case unableToGetFlags(Swift.Int32)
+}
+@available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
+public let ReachabilityChangedNotification: Foundation.NSNotification.Name
+extension Foundation.NSNotification.Name {
+  public static let reachabilityChanged: Foundation.Notification.Name
+}
+public class Reachability {
+  public typealias NetworkReachable = (Attrackt.Reachability) -> ()
+  public typealias NetworkUnreachable = (Attrackt.Reachability) -> ()
+  @available(*, unavailable, renamed: "Connection")
+  public enum NetworkStatus : Swift.CustomStringConvertible {
+    case notReachable, reachableViaWiFi, reachableViaWWAN
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: Attrackt.Reachability.NetworkStatus, b: Attrackt.Reachability.NetworkStatus) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum Connection : Swift.CustomStringConvertible {
+    case unavailable, wifi, cellular
+    public var description: Swift.String {
+      get
+    }
+    @available(*, deprecated, renamed: "unavailable")
+    public static let none: Attrackt.Reachability.Connection
+    public static func == (a: Attrackt.Reachability.Connection, b: Attrackt.Reachability.Connection) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public var whenReachable: Attrackt.Reachability.NetworkReachable?
+  public var whenUnreachable: Attrackt.Reachability.NetworkUnreachable?
+  @available(*, deprecated, renamed: "allowsCellularConnection")
+  final public let reachableOnWWAN: Swift.Bool
+  public var allowsCellularConnection: Swift.Bool
+  public var notificationCenter: Foundation.NotificationCenter
+  @available(*, deprecated, renamed: "connection.description")
+  public var currentReachabilityString: Swift.String {
+    get
+  }
+  @available(*, unavailable, renamed: "connection")
+  public var currentReachabilityStatus: Attrackt.Reachability.Connection {
+    get
+  }
+  public var connection: Attrackt.Reachability.Connection {
+    get
+  }
+  required public init(reachabilityRef: SystemConfiguration.SCNetworkReachability, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main)
+  convenience public init(hostname: Swift.String, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
+  convenience public init(queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
+  @objc deinit
+}
+extension Attrackt.Reachability {
+  public func startNotifier() throws
+  public func stopNotifier()
+  @available(*, deprecated, message: "Please use `connection != .none`")
+  public var isReachable: Swift.Bool {
+    get
+  }
+  @available(*, deprecated, message: "Please use `connection == .cellular`")
+  public var isReachableViaWWAN: Swift.Bool {
+    get
+  }
+  @available(*, deprecated, message: "Please use `connection == .wifi`")
+  public var isReachableViaWiFi: Swift.Bool {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+}
+extension Moya.Response {
+  final public func mapObject<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) throws -> T where T : ObjectMapper.BaseMappable
+  final public func mapArray<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) throws -> [T] where T : ObjectMapper.BaseMappable
+  final public func mapObject<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) throws -> T where T : ObjectMapper.BaseMappable
+  final public func mapArray<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) throws -> [T] where T : ObjectMapper.BaseMappable
+}
+extension Moya.Response {
+  final public func mapObject<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) throws -> T where T : ObjectMapper.ImmutableMappable
+  final public func mapArray<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) throws -> [T] where T : ObjectMapper.ImmutableMappable
+  final public func mapObject<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) throws -> T where T : ObjectMapper.ImmutableMappable
+  final public func mapArray<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) throws -> [T] where T : ObjectMapper.ImmutableMappable
+}
+extension RxSwift.PrimitiveSequence where Trait == RxSwift.SingleTrait, Element == Moya.Response {
+  public func mapObject<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) -> RxSwift.Single<T> where T : ObjectMapper.BaseMappable
+  public func mapArray<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) -> RxSwift.Single<[T]> where T : ObjectMapper.BaseMappable
+  public func mapObject<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) -> RxSwift.Single<T> where T : ObjectMapper.BaseMappable
+  public func mapArray<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) -> RxSwift.Single<[T]> where T : ObjectMapper.BaseMappable
+}
+extension RxSwift.PrimitiveSequence where Trait == RxSwift.SingleTrait, Element == Moya.Response {
+  public func mapObject<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) -> RxSwift.Single<T> where T : ObjectMapper.ImmutableMappable
+  public func mapArray<T>(_ type: T.Type, context: ObjectMapper.MapContext? = nil) -> RxSwift.Single<[T]> where T : ObjectMapper.ImmutableMappable
+  public func mapObject<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) -> RxSwift.Single<T> where T : ObjectMapper.ImmutableMappable
+  public func mapArray<T>(_ type: T.Type, atKeyPath keyPath: Swift.String, context: ObjectMapper.MapContext? = nil) -> RxSwift.Single<[T]> where T : ObjectMapper.ImmutableMappable
+}
+@objc public protocol SRCountdownTimerDelegate {
+  @objc optional func timerDidUpdateCounterValue(sender: Attrackt.SRCountdownTimer, newValue: Swift.Int)
+  @objc optional func timerDidStart(sender: Attrackt.SRCountdownTimer)
+  @objc optional func timerDidPause(sender: Attrackt.SRCountdownTimer)
+  @objc optional func timerDidResume(sender: Attrackt.SRCountdownTimer)
+  @objc optional func timerDidEnd(sender: Attrackt.SRCountdownTimer, elapsedTime: Foundation.TimeInterval)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class SRCountdownTimer : UIKit.UIView {
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) public var lineWidth: CoreGraphics.CGFloat
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) public var lineColor: UIKit.UIColor
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) public var trailLineColor: UIKit.UIColor
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) public var isLabelHidden: Swift.Bool
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) public var labelFont: UIKit.UIFont?
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) public var labelTextColor: UIKit.UIColor?
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) public var timerFinishingText: Swift.String?
+  @_Concurrency.MainActor(unsafe) weak public var delegate: Attrackt.SRCountdownTimerDelegate?
+  @_Concurrency.MainActor(unsafe) public var useMinutesAndSecondsRepresentation: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var moveClockWise: Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func draw(_ rect: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) public func start(beginingValue: Swift.Int, interval: Foundation.TimeInterval = 1)
+  @_Concurrency.MainActor(unsafe) public func pause()
+  @_Concurrency.MainActor(unsafe) public func resume()
+  @_Concurrency.MainActor(unsafe) public func reset()
+  @_Concurrency.MainActor(unsafe) public func end()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class SwiftConfettiView : UIKit.UIView {
+  public enum ConfettiType {
+    case confetti
+    case triangle
+    case star
+    case diamond
+    case image(UIKit.UIImage)
+  }
+  @_Concurrency.MainActor(unsafe) public var colors: [UIKit.UIColor]!
+  @_Concurrency.MainActor(unsafe) public var intensity: Swift.Float!
+  @_Concurrency.MainActor(unsafe) public var type: Attrackt.SwiftConfettiView.ConfettiType!
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) public func startConfetti()
+  @_Concurrency.MainActor(unsafe) public func stopConfetti()
+  @_Concurrency.MainActor(unsafe) public func isActive() -> Swift.Bool
+  @objc deinit
+}
+extension Foundation.Bundle {
+  public var icon: UIKit.UIImage? {
+    get
+  }
+}
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public static let modelName: Swift.String
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public var safeArea: SnapKit.ConstraintLayoutGuideDSL {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public func gradientBorder(width: CoreGraphics.CGFloat, colors: [UIKit.UIColor], startPoint: CoreGraphics.CGPoint = CGPoint(x: 0.5, y: 0.0), endPoint: CoreGraphics.CGPoint = CGPoint(x: 0.5, y: 1.0), andRoundCornersWithRadius cornerRadius: CoreGraphics.CGFloat = 0)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class VideoImageEndCardLandScape : Attrackt.AttracktAdvertisementVc, Attrackt.SRCountdownTimerDelegate, Attrackt.PlayerDelegate, Attrackt.PlayerPlaybackDelegate {
+  @_Concurrency.MainActor(unsafe) public var placementType: Attrackt.AttracktInterstitialPlacementType?
+  @_Concurrency.MainActor(unsafe) public var lockdownLength: Swift.Int {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc public func timerDidEnd(sender: Attrackt.SRCountdownTimer, elapsedTime: Foundation.TimeInterval)
+  @_Concurrency.MainActor(unsafe) public func playerReady(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func playerCurrentTimeDidChange(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackDidEnd(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackStateDidChange(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerBufferingStateDidChange(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackWillStartFromBeginning(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackWillLoop(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackDidLoop(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerBufferTimeDidChange(_ bufferTime: Swift.Double)
+  @_Concurrency.MainActor(unsafe) public func player(_ player: Attrackt.Player, didFailWithError error: Swift.Error?)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class VideoImageEndCardPortrait : Attrackt.AttracktAdvertisementVc, Attrackt.SRCountdownTimerDelegate, Attrackt.PlayerDelegate, Attrackt.PlayerPlaybackDelegate {
+  @_Concurrency.MainActor(unsafe) public var placementType: Attrackt.AttracktInterstitialPlacementType?
+  @_Concurrency.MainActor(unsafe) public var lockdownLength: Swift.Int {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc public func timerDidEnd(sender: Attrackt.SRCountdownTimer, elapsedTime: Foundation.TimeInterval)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func playerReady(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerCurrentTimeDidChange(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackDidEnd(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackStateDidChange(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerBufferingStateDidChange(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackWillStartFromBeginning(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackWillLoop(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerPlaybackDidLoop(_ player: Attrackt.Player)
+  @_Concurrency.MainActor(unsafe) public func playerBufferTimeDidChange(_ bufferTime: Swift.Double)
+  @_Concurrency.MainActor(unsafe) public func player(_ player: Attrackt.Player, didFailWithError error: Swift.Error?)
+  @objc deinit
+}
+extension Attrackt.AttracktAdFinishedState : Swift.Equatable {}
+extension Attrackt.AttracktAdFinishedState : Swift.Hashable {}
+extension Attrackt.AttracktAdFinishedState : Swift.RawRepresentable {}
+extension Attrackt.AttracktBannerPosition : Swift.Equatable {}
+extension Attrackt.AttracktBannerPosition : Swift.Hashable {}
+extension Attrackt.AttracktBannerPosition : Swift.RawRepresentable {}
+extension Attrackt.AttracktEnvironment : Swift.Equatable {}
+extension Attrackt.AttracktEnvironment : Swift.Hashable {}
+extension Attrackt.AttracktEnvironment : Swift.RawRepresentable {}
+extension Attrackt.ReceiptStatus : Swift.Equatable {}
+extension Attrackt.ReceiptStatus : Swift.Hashable {}
+extension Attrackt.ReceiptStatus : Swift.RawRepresentable {}
+extension Attrackt.AttracktInterstitialPlacementType : Swift.Equatable {}
+extension Attrackt.AttracktInterstitialPlacementType : Swift.Hashable {}
+extension Attrackt.AttracktInterstitialPlacementType : Swift.RawRepresentable {}
+extension Attrackt.AttracktSupportedAdvertisers : Swift.Equatable {}
+extension Attrackt.AttracktSupportedAdvertisers : Swift.Hashable {}
+extension Attrackt.AttracktSupportedAdvertisers : Swift.RawRepresentable {}
+extension CoreGraphics.CGPoint.CoordinateSide : Swift.Equatable {}
+extension CoreGraphics.CGPoint.CoordinateSide : Swift.Hashable {}
+extension Attrackt.AttracktErrorType : Swift.Equatable {}
+extension Attrackt.AttracktErrorType : Swift.Hashable {}
+extension Attrackt.AttracktErrorType : Swift.RawRepresentable {}
+extension Attrackt.AttracktErrorAction : Swift.Equatable {}
+extension Attrackt.AttracktErrorAction : Swift.Hashable {}
+extension Attrackt.AttracktErrorAction : Swift.RawRepresentable {}
+extension Attrackt.PlayerError : Swift.Equatable {}
+extension Attrackt.PlayerError : Swift.Hashable {}
+extension Attrackt.Player.PlaybackState : Swift.Equatable {}
+extension Attrackt.Player.PlaybackState : Swift.Hashable {}
+extension Attrackt.Player.PlaybackState : Swift.RawRepresentable {}
+extension Attrackt.Player.BufferingState : Swift.Equatable {}
+extension Attrackt.Player.BufferingState : Swift.Hashable {}
+extension Attrackt.Player.BufferingState : Swift.RawRepresentable {}
+@available(*, unavailable, renamed: "Connection")
+extension Attrackt.Reachability.NetworkStatus : Swift.Equatable {}
+@available(*, unavailable, renamed: "Connection")
+extension Attrackt.Reachability.NetworkStatus : Swift.Hashable {}
+extension Attrackt.Reachability.Connection : Swift.Equatable {}
+extension Attrackt.Reachability.Connection : Swift.Hashable {}
